@@ -21,7 +21,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'TOKEN')]) {
                     sh """
                         echo $TOKEN
-                        // sonar-scanner -Dsonar.login=$TOKEN
+                        # sonar-scanner -Dsonar.login=$TOKEN
                     """
                 }
             }

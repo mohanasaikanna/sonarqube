@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        // optional but recommended if Python tool is configured
-    }
-
     stages {
 
         stage('Checkout Code') {
@@ -37,5 +33,6 @@ pipeline {
                 }
             }
         }
+
     }
 }

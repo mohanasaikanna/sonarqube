@@ -1,9 +1,10 @@
-mport unittest
-from app import *
+import unittest
+from app import greet
 
 class TestApp(unittest.TestCase):
-    def test_dummy(self):
-        self.assertEqual(1, 1)
+
+    def test_greet(self):
+        self.assertEqual(greet("Jenkins"), "Hello Jenkins")
 
 if __name__ == "__main__":
     unittest.main()

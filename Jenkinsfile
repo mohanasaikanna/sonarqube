@@ -16,12 +16,15 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-    steps {
-        script {
-            sh "sonar-scanner -Dsonar.login=<YOUR_TOKEN>"
+            steps {
+                // Use a Jenkins credential for the token
+                withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'TOKEN')]) {
+                    sh """
+                        sonar-scanner -Dsonar.login=$TOKEN
+                    """
+                }
+            }
         }
-    }
-}
 
         stage('Quality Gate') {
             steps {

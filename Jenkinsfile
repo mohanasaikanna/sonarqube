@@ -17,12 +17,12 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                // Use a Jenkins credential for the token
-                withCredentials([string(credentialsId: 'sonar-token', variable: 'TOKEN')]) {
-                    sh """
-                        echo $TOKEN
-                        # sonar-scanner -Dsonar.login=$TOKEN
-                    """
+                withSonarQubeEnv('SonarQube') {
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'TOKEN')]) {
+                        sh """
+                            ${tool 'sonar-scanner'}/bin/sonar-scanner -Dsonar.login=$TOKEN
+                        """
+                    }
                 }
             }
         }

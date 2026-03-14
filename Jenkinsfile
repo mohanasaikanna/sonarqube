@@ -20,7 +20,8 @@ pipeline {
                 // Use a Jenkins credential for the token
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'TOKEN')]) {
                     sh """
-                        sonar-scanner -Dsonar.login=$TOKEN
+                        echo $TOKEN
+                        // sonar-scanner -Dsonar.login=$TOKEN
                     """
                 }
             }

@@ -1,13 +1,17 @@
 pipeline {
     agent any
 
+    tools {
+        // optional but recommended if Python tool is configured
+    }
+
     stages {
 
-       stage('Checkout Code') {
-    steps {
-        git branch: 'main', url: 'https://github.com/mohanasaikanna/sonarqube.git'
-    }
-}
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/mohanasaikanna/sonarqube.git'
+            }
+        }
 
         stage('Run Tests') {
             steps {
@@ -17,8 +21,11 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner'
+                script {
+                    def scannerHome = tool 'sonar-scanner'
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
                 }
             }
         }
@@ -30,6 +37,5 @@ pipeline {
                 }
             }
         }
-
     }
 }

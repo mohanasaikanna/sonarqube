@@ -16,13 +16,12 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            steps {
-                script {
-                   
-                    sh "sonar-scanner -Dsonar.login=<sqa_d1501ce4c9ed60e53cfd3ce467ba2bd725289239>"
-                }
-            }
+    steps {
+        script {
+            sh "sonar-scanner -Dsonar.login=<YOUR_TOKEN>"
         }
+    }
+}
 
         stage('Quality Gate') {
             steps {

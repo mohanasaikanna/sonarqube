@@ -19,9 +19,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     withCredentials([string(credentialsId: 'sonar-token', variable: 'TOKEN')]) {
-                        sh """
-                            ${tool 'sonar-scanner'}/bin/sonar-scanner -Dsonar.login=$TOKEN
-                        """
+                        sh "${tool 'sonar-scanner'}/bin/sonar-scanner -Dsonar.login=$TOKEN"
                     }
                 }
             }
@@ -30,7 +28,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
